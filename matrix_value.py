@@ -12,20 +12,20 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        first_row = matrix[0]
-        index_row = 0
-        for num in first_row:
-            if target > num:
-                index_row += 1
-            else:
-                break
+        if matrix is None or len(matrix) == 0 or len(matrix[0]) == 0:
+            return False
+        column = len(matrix[0]) - 1
+        row = 0
+        while True:
+            if column < 0 or row > len(matrix) - 1:
+                return False
 
-        column = [row[index_row] for row in matrix]
-        for num in column:
-            if num == target:
+            if matrix[row][column] == target:
                 return True
-
-        return False
+            elif matrix[row][column] > target:
+                column -= 1
+            elif matrix[row][column] < target:
+                row += 1
 
 
 s = Solution()
