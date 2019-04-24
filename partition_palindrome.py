@@ -1,30 +1,26 @@
-import pysnooper
-
+# partition palindrome
 
 class Solution:
-    @pysnooper.snoop()
-    def _partition(self, s, index, t, result):
-        if index == len(s):
-            result.append(t.copy())
-            return
-
-        for i in range(index + 1, len(s) + 1):
-            if s[index:i] == s[index:i][::-1]:
-                t.append(s[index:i])
-                self._partition(s, i, t, result)
-                t.pop()
 
     def partition(self, s):
         """
         :type s: str
         :rtype: List[List[str]]
         """
-        result = list()
-        if not s:
-            return result
-
-        self._partition(s, 0, list(), result)
+        result = []
+        self._partition(0, s, [], result)
         return result
+
+    def _partition(self, index, s, tmp, res):
+        if index == len(s):
+            res.append(tmp.copy())
+            return
+
+        for i in range(index + 1, len(s) + 1):
+            if s[index:i] == s[index:i][::-1]:
+                tmp.append(s[index:i])
+                self._partition(i, s, tmp, res)
+                tmp.pop()
 
 
 s = Solution()
