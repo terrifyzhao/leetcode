@@ -21,10 +21,13 @@ class Solution(object):
         result = [0] * (len(s) + 1)
         result[0] = 1
         # 终止位置
-        for i in range(len(s) + 1):
+        for i in range(1, len(s) + 1):
             # 起始位置
             for j in range(i - max_stride, i):
-                # 起始位置为1表示前面的内在在dict内，起始位置与终止位置之间的内容在dict中，则修改终止位置的值为1，
+                if j < 0:
+                    continue
+                # 想象为爬楼梯，result[j]为1表示能到达的楼层，这里表示匹配上的字符串，
+                # 还需要保证字符串在dict里面，如果两者都满足，则跟新result内容
                 if result[j] == 1 and s[j:i] in wordDict:
                     result[i] = 1
         if result[-1] == 1:
@@ -36,3 +39,15 @@ class Solution(object):
 s = Solution()
 word_break = s.wordBreak("cars", ["car", "ca", "rs"])
 print(word_break)
+
+
+def wordBreak(s, wordDict):
+    dp = [False] * (len(s) + 1)
+    dp[0] = True
+    for i in range(len(s) + 1):
+        if not dp[i]:
+            continue
+        for word in wordDict:
+            if i + len(word) <= len(s) and s[i:i + len(word)] == word:
+                dp[i + len(word)] = True
+    return dp[len(s)]
