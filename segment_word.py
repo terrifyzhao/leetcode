@@ -27,7 +27,7 @@ class Solution(object):
                 if j < 0:
                     continue
                 # 想象为爬楼梯，result[j]为1表示能到达的楼层，这里表示匹配上的字符串，
-                # 还需要保证字符串在dict里面，如果两者都满足，则跟新result内容
+                # 还需要保证字符串在dict里面，如果两者都满足，则更新result内容
                 if result[j] == 1 and s[j:i] in wordDict:
                     result[i] = 1
         if result[-1] == 1:

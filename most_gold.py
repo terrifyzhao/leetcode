@@ -54,6 +54,7 @@ def most_gold_bottom_top(n, w, g, p):
             if j < p[i]:
                 result[i][j] = result[i - 1][j]
             else:
+                # 左边不挖，右边挖
                 result[i][j] = max(result[i - 1][j], result[i - 1][j - p[i]] + g[i])
     return result[-1][-1]
 
