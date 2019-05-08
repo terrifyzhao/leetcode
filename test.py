@@ -1,2 +1,6 @@
-for i in range(-5):
-    print(i)
+def isPalindrome(s):
+    return s == s[::-1]
+
+
+print(isPalindrome('abaaba'))
+
