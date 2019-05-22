@@ -30,7 +30,7 @@ class Solution(object):
             # 把下标存入win中
             win.append(i)
             # 如果下标大于k就把结果存入res
-            if i >= k-1:
+            if i >= k - 1:
                 res.append(nums[win[0]])
         return res
 
