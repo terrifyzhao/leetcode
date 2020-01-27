@@ -4,15 +4,13 @@ def partition(nums, start, end):
     right = end
 
     while left != right:
-        while left < right and nums[right] > pivot:
+        while left < right and nums[right] >= pivot:
             right -= 1
-        while left < right and nums[left] <= pivot:
+        nums[left] = nums[right]
+        while left < right and nums[left] <pivot:
             left += 1
-        if left < right:
-            tmp = nums[left]
-            nums[left] = nums[right]
-            nums[right] = tmp
-    nums[start] = nums[left]
+        nums[right] = nums[left]
+
     nums[left] = pivot
     return left
 
