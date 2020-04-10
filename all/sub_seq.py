@@ -90,17 +90,14 @@ def CIS(nums):
     if not nums:
         return 0
     n = len(nums)
-    dp = [0 for _ in range(n)]
-    dp[0] = 1
-    max_len = 0
+    dp = [1 for _ in range(n)]
+
     for i in range(1, n):
-        max_sub_len = 0
         for j in range(i):
             if nums[i] > nums[j]:
-                max_sub_len = max(dp[j], max_sub_len)
-        dp[i] = max_sub_len + 1
-        max_len = max(dp[i], max_len)
-    return max_len
+                dp[i] = max(dp[i], dp[j] + 1)
+
+    return max(dp)
 
 
 a = CIS([2, 1, 4, 6, 5, 0, 9])
@@ -126,6 +123,36 @@ def CCIS(nums):
 
 a = CCIS([2, 1, 4, 6, 5, 0, 9])
 print(a)
+
+
+# 最长回文子串
+def longestPalindrome(s):
+    """
+    :type s: str
+    :rtype: str
+    """
+    length = len(s)
+
+    dp = [[0 for _ in range(length)] for _ in range(length)]
+    r = s[::-1]
+    max_len = 0
+    max_end = 0
+    for i in range(0, length):
+        for j in range(0, length):
+
+            if s[i] == r[j]:
+                if i == 0 or j == 0:
+                    dp[i][j] = 1
+                else:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+            if max_len < dp[i][j]:
+                reverse_start = length - j - 1
+                if reverse_start + dp[i][j] - 1 == i:
+                    max_len = dp[i][j]
+                    max_end = i
+
+    return s[max_end - max_len:max_end]
+
 
 import math
 
