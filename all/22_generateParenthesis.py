@@ -50,3 +50,43 @@ class Solution2(object):
             dp[i] = cur
 
         return dp[-1]
+
+
+def generateParenthesis(n):
+    res = []
+
+    def dfs(s, left, right):
+        if left == n and right == n:
+            res.append(s)
+            return
+        if left < right:
+            return
+
+        if left < n:
+            dfs(s + '(', left + 1, right)
+
+        if right < n:
+            dfs(s + ')', left, right + 1)
+
+    dfs('', 0, 0)
+    return res
+
+
+def generateParenthesis_dp(n):
+
+    dp = [None for _ in range(n + 1)]
+    dp[0] = ['']
+    for i in range(1, n + 1):
+        cur = []
+        for j in range(i):
+            left = dp[j]
+            right = dp[i - 1 - j]
+            for l in left:
+                for r in right:
+                    cur.append('(' + l + ')' + r)
+        dp[i] = cur
+
+    return dp[n]
+
+
+print(generateParenthesis_dp(3))
