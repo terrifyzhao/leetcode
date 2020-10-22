@@ -14,3 +14,13 @@ class Solution(object):
         for num in nums:
             b, a = max(a + num, b), b
         return a
+
+    def rob2(self, num):
+        n = len(num)
+        dp = [0 for _ in range(n)]
+
+        dp[0] = num[0]
+
+        for i in range(1, n):
+            dp[i] = max(dp[i - 1], dp[i] + num[i])
+        return dp[-1]

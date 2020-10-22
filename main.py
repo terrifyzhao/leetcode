@@ -1,25 +1,27 @@
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
 class Solution(object):
-    def buildTree(self, inorder, postorder):
-        """
-        :type inorder: List[int]
-        :type postorder: List[int]
-        :rtype: TreeNode
-        """
-        if not postorder:
-            return None
-        root = TreeNode(postorder[-1])
-        index = inorder.index(root.val)
-        root.left = self.buildTree(inorder[:index], postorder[:index])
-        root.right = self.buildTree(inorder[index + 1:], postorder[index:-1])
+    def longestPalindrome(self, s):
+        r = s[::-1]
+        max_len = 0
+        max_end = 0
 
-        return root
+        dp = [[0 for _ in range(len(s))] for _ in range(len(s))]
+
+        for i in range(len(s)):
+            dp[i][0] = 1 if s[i] == r[0] else 0
+
+        for i in range(len(s)):
+            dp[0][i] = 1 if r[i] == s[0] else 0
+
+        for i in range(len(s)):
+            for j in range(len(r)):
+                if s[i] == r[j]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                if dp[i][j] > max_len:
+                    max_len = dp[i][j]
+                    max_end = i
+
+        return s[max_end - max_len + 1:max_end + 1]
 
 
-print(Solution().buildTree([9, 3, 15, 20, 7], [9, 15, 7, 20, 3]))
+a = Solution().longestPalindrome("babad")
+print(a)
